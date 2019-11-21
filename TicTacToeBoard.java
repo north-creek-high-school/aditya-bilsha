@@ -18,25 +18,23 @@ import javax.swing.JOptionPane;
 public class TicTacToeBoard {
 	
 	//Each dimension of the board is 900 pixels long
-	private static final int DIMENSION = 900;
+	private final int DIMENSION = 900;
 	//9 regions, each having a dimension a third of the length of the board
-	private static int regionDimension = DIMENSION/3;
+	private int regionDimension = DIMENSION/3;
 	//Construct DrawingPanel for display
-	private static DrawingPanel p = new DrawingPanel(DIMENSION, DIMENSION);
+	private DrawingPanel p = new DrawingPanel(DIMENSION, DIMENSION);
 	//Construct Graphics object to alter DrawingPanel object
-	private static Graphics g = p.getGraphics();
+	private Graphics g = p.getGraphics();
 	//Construct boardBrain object to act as the "referee" for the game
-	private static BoardBrain boardBrain = new BoardBrain(); 
+	private BoardBrain boardBrain = new BoardBrain(); 
 	//Construct turn variable that increments after each move to keep track of who goes next
-	private static int turn = 0; 
+	private int turn = 0; 
 	
 	
 	public static void main(String[] args)  {
-		
-		//sets the main Font size for the X and O values for display in game
-		g.setFont(new Font("Sanserif", Font.PLAIN, 400));
+		TicTacToeBoard boad = new TicTacToeBoard();
 		//playGame() is called when game has started or when player wants to play again
-		playNewGame();
+		boad.playNewGame();
 		
 	}
 	
@@ -52,7 +50,7 @@ public class TicTacToeBoard {
 	 * @param pixelX: Stores the top left x coordinate of the region the player clicked in
 	 * @param pixelY: Stores the top left y coordinate of the region the player clicked in
 	 */
-	private static void clickHandler(int sx, int sy) {
+	private void clickHandler(int sx, int sy) {
 		
 		//the x and y coordinates of the mouse are divided by regionDimension to get a value between 0 and 2
 		//this value represents the region number across and along the board respectfully 
@@ -112,7 +110,7 @@ public class TicTacToeBoard {
 	 * @param win: boardBrain's evaluation of last game's board state
 	 * @param message: boardBrain's evaluation translated into String format
 	 */
-	private static void winHandler(int win) {
+	private void winHandler(int win) {
 		
 		//message translates win variable into english
 		String message = "";
@@ -148,7 +146,7 @@ public class TicTacToeBoard {
 	 * 1) Wipes boardBrain's region multi-dimensional array
 	 * 2) Starts new game and goes back to 0 turns completed
 	 */
-	private static void reset() {
+	private void reset() {
 		
 		//wipes 2D region array of boardBrain
 		boardBrain.resetRegion();
@@ -165,8 +163,10 @@ public class TicTacToeBoard {
 	 * 1) Clears DrawingPanel and draws new clean background
 	 * 2) Sets up mouseClick recognizer and passes mouseClick coordinates into clickHandler(int sx, int sy)
 	 */
-	private static void playNewGame() {
-		
+	private void playNewGame() {
+
+		//sets the main Font size for the X and O values for display in game
+		g.setFont(new Font("Sanserif", Font.PLAIN, 400));
 		p.clear();
 		
 		//draw lines for background
@@ -181,7 +181,7 @@ public class TicTacToeBoard {
 	 * Roles:
 	 * 1) Draws the background
 	 */
-	private static void drawBackground() {
+	private void drawBackground() {
 		g.drawLine(0, regionDimension, DIMENSION, regionDimension);
 		g.drawLine(0, 2 * regionDimension, DIMENSION, 2 * regionDimension);
 		g.drawLine(regionDimension, 0, regionDimension, DIMENSION);

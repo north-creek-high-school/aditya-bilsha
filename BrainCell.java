@@ -19,11 +19,11 @@ public class BrainCell {
 				}
 			}
 		}
-		for (int row = 0; row < boardState.length; row++) {
-			for (int col = 0; col < boardState[row].length; col++) {
-				
-			}
-		}
 	}
+	
+	public void add() {
+		
+	}
+	
 	
 }
