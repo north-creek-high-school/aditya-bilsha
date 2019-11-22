@@ -7,8 +7,8 @@ import java.util.*;
 /**
  * Class DogBrain is the AI class that interacts with the game
  * Roles and responsibilities:
- * 1) Set up an array of "cups" that's contantly learning after each win and lose
- * 2) Makes moves by evaluating its array
+ * 1) Set up a map of "cups" linked to specific boardStates that's constantly learning after each win and lose
+ * 2) Makes moves by evaluating the map 
  */
 public class AIBrain {
 	
