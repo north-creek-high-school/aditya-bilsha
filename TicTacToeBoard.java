@@ -21,14 +21,18 @@ public class TicTacToeBoard {
 	private final int DIMENSION = 900;
 	//9 regions, each having a dimension a third of the length of the board
 	private int regionDimension = DIMENSION/3;
+	//Construct turn variable that increments after each move to keep track of who goes next
+	private int turn = 0;
+	//Boolean value for if AI is going first 
+	private boolean AIisGoingFirst = false;
 	//Construct DrawingPanel for display
 	private DrawingPanel p = new DrawingPanel(DIMENSION, DIMENSION);
 	//Construct Graphics object to alter DrawingPanel object
 	private Graphics g = p.getGraphics();
 	//Construct boardBrain object to act as the "referee" for the game
 	private BoardBrain boardBrain = new BoardBrain(); 
-	//Construct turn variable that increments after each move to keep track of who goes next
-	private int turn = 0; 
+	//Construct an empty AI that will remain dormant until players asks to play agaisnt it
+	private AIBrain notHuman = new AIBrain();
 	
 	
 	public static void main(String[] args)  {
