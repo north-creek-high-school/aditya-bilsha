@@ -25,6 +25,8 @@ public class TicTacToeBoard {
 	private int turn = 0;
 	//Boolean value for if AI is going first 
 	private boolean AIisGoingFirst = false;
+	//Variable for what type of game is in progress
+	private int typeOfGame = 0;
 	//Construct DrawingPanel for display
 	private DrawingPanel p = new DrawingPanel(DIMENSION, DIMENSION);
 	//Construct Graphics object to alter DrawingPanel object
@@ -73,6 +75,7 @@ public class TicTacToeBoard {
 		//use drawString() to put down X or O on board region and 4 or 5 respectfully inside the corresponding region in 2D array
 		if (turnsLeft && regionIsEmpty) { 
 			if (XTurn) {
+				if ()
 				g.drawString("x", pixelX + 50, pixelY + 250);
 				//value of 3 chosen for summing up values
 				boardBrain.region[regionY][regionX] = 3;
@@ -175,6 +178,8 @@ public class TicTacToeBoard {
 		
 		//draw lines for background
 		drawBackground();
+		
+		int typeOfGame = JOptionPane.showConfirmDialog(null, "Do you want to play against AI?");
 		
 		p.onClick( (x,y) ->	 clickHandler(x, y));
 		
