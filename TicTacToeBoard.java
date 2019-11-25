@@ -23,8 +23,8 @@ public class TicTacToeBoard {
 	private int regionDimension = DIMENSION/3;
 	//Construct turn variable that increments after each move to keep track of who goes next
 	private int turn = 0;
-	//Boolean value for if AI is going first 
-	private boolean AIisGoingFirst = false;
+	//int value for if AI is going first, 0 is no, 1 is yes
+	private int AIisGoingFirst = 0;
 	//Variable for what type of game is in progress
 	private int typeOfGame = 0;
 	//Construct DrawingPanel for display
@@ -56,7 +56,7 @@ public class TicTacToeBoard {
 	 * @param pixelX: Stores the top left x coordinate of the region the player clicked in
 	 * @param pixelY: Stores the top left y coordinate of the region the player clicked in
 	 */
-	private void clickHandler(int sx, int sy) {
+	private void hvhClickHandler(int sx, int sy) {
 		
 		//the x and y coordinates of the mouse are divided by regionDimension to get a value between 0 and 2
 		//this value represents the region number across and along the board respectfully 
@@ -75,7 +75,6 @@ public class TicTacToeBoard {
 		//use drawString() to put down X or O on board region and 4 or 5 respectfully inside the corresponding region in 2D array
 		if (turnsLeft && regionIsEmpty) { 
 			if (XTurn) {
-				if ()
 				g.drawString("x", pixelX + 50, pixelY + 250);
 				//value of 3 chosen for summing up values
 				boardBrain.region[regionY][regionX] = 3;
@@ -87,6 +86,63 @@ public class TicTacToeBoard {
 			}
 			turn++;
 		}
+		
+		boardCheck();
+		
+	}
+
+	private void avhClickHandler(int sx, int sy) {
+
+		//boolean variable to determine if there are turns left in game
+		boolean turnsLeft = turn < 9;
+		if (AIisGoingFirst == 1) {
+			AImakesMove();
+			boardCheck();
+			//the x and y coordinates of the mouse are divided by regionDimension to get a value between 0 and 2
+			//this value represents the region number across and along the board respectfully 
+			int regionX = (sx/regionDimension); 	
+			int regionY = (sy/regionDimension);
+			//regionX and regionY are multiplied once again to get the top left coordinates of each region
+			int pixelX = regionX * regionDimension;
+			int pixelY = regionY * regionDimension;
+			//boolean variable to determine if location on board is empty to be filled by player
+			boolean regionIsEmpty = boardBrain.region[regionY][regionX] == 0;
+			if (turnsLeft && regionIsEmpty) {
+				g.drawString("o", pixelX + 40, pixelY + 250);
+				//value of 4 chose for summing up values
+				boardBrain.region[regionY][regionX] = 4;
+				turn++;
+			}
+			boardCheck();
+		} else if (AIisGoingFirst == 0){
+			//the x and y coordinates of the mouse are divided by regionDimension to get a value between 0 and 2
+			//this value represents the region number across and along the board respectfully 
+			int regionX = (sx/regionDimension); 	
+			int regionY = (sy/regionDimension);
+			//regionX and regionY are multiplied once again to get the top left coordinates of each region
+			int pixelX = regionX * regionDimension;
+			int pixelY = regionY * regionDimension;
+			//boolean variable to determine if location on board is empty to be filled by player
+			boolean regionIsEmpty = boardBrain.region[regionY][regionX] == 0;
+			if (turnsLeft && regionIsEmpty) {
+				g.drawString("x", pixelX + 50, pixelY + 250);
+				//value of 4 chose for summing up values
+				boardBrain.region[regionY][regionX] = 4;
+				turn++;
+			}
+			boardCheck();
+			AImakesMove();
+			boardCheck();
+		}
+	}
+	
+	private void AImakesMove() {
+		
+		System.out.println("AI has made move");
+		
+	}
+
+	private void boardCheck() {
 		
 		//boardBrain evaluates current board state and returns value
 		//1 represents a state where X has won
@@ -106,8 +162,9 @@ public class TicTacToeBoard {
 		if (gameHasEnded) {
 			winHandler(win);	
 		}
+
 	}
-	
+
 	/**
 	 * Method winHandler(int win)
 	 * Roles:
@@ -179,12 +236,30 @@ public class TicTacToeBoard {
 		//draw lines for background
 		drawBackground();
 		
-		int typeOfGame = JOptionPane.showConfirmDialog(null, "Do you want to play against AI?");
-		
-		p.onClick( (x,y) ->	 clickHandler(x, y));
+		setTypeOfGame();
 		
 	}
 	
+	private void setTypeOfGame() {
+		
+		typeOfGame = JOptionPane.showConfirmDialog(null, "Do you want to play against AI?");
+		
+		if (typeOfGame == 1) {
+			p.onClick( (x,y) ->	 hvhClickHandler(x, y));
+		} else if (typeOfGame == 0){
+			AIisGoingFirst = JOptionPane.showConfirmDialog(null, "Do you want to go first?");
+			if (AIisGoingFirst == 0) {
+				//Human goes first
+				turn = 0;
+			} else {
+				//AI goes first
+				turn = -1;
+			}
+			p.onClick( (x,y) ->	 avhClickHandler(x, y));
+		}
+		
+	}
+
 	/**
 	 * Method drawBackground()
 	 * Roles:
