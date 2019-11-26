@@ -12,12 +12,15 @@ import java.util.*;
  */
 public class AIBrain {
 	
-	private HashMap<State, BrainCell> longTermMemory = new HashMap<>();
+	//where all the states are stored and in correlation to a specific BrainCell (cup)
+	public static HashMap<State, BrainCell> longTermMemory = new HashMap<>();
 	private Set<Integer> positionsMemory = new HashSet<>();
+	private State state = new State(); 
 	
 	public AIBrain() {
 		
 	}
+	
 	
 	/**
 	 * chooseMove() method roles:
@@ -27,9 +30,27 @@ public class AIBrain {
 	 * @param boardState: the current state of the board
 	 * @return chosenPosition after evaluating possibilities
 	 */
-	public int choosePosition(int[][] boardState) {
+	public int getMove() {
+		BoardBrain b = new BoardBrain(); 
+		int[][] correctMatch = b.region; 
+		BrainCell cup = null; 
 		
-		return 0;
+		//finds the correct match and accesses the cup responsible for that state
+		for (Map.Entry<State, BrainCell> entry : longTermMemory.entrySet())  {
+			State p = entry.getKey(); 
+			int[][] potentialMatch = p.getState(); 
+			
+			//finding the match and proceeding if match is found
+			if ( Arrays.deepEquals(correctMatch, potentialMatch) ) {
+				cup = entry.getValue(); 
+			}
+		}
+
+		//picks random number from associated cup
+		int size = cup.positions.size(); 
+		int randomNumber = (int)(Math.random()*size); 
+		int region = cup.positions.get(randomNumber); 
+		return region;
 	}
 	
 	/**
@@ -42,10 +63,12 @@ public class AIBrain {
 		//If AI won, go back through last match's board positions and increase likelihood of each position for each braincell
 		if (win) {
 			for (int i = 0; i < positionsMemory.size(); i++) {
+				
 			}
 			//If AI won, go back through last match's board positions and decrease likelihood of each position for each braincell
 		} else {
 			for (int i = 0; i < positionsMemory.size(); i++) {
+				
 			}
 		}
 		positionsMemory.clear();

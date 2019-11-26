@@ -138,7 +138,34 @@ public class TicTacToeBoard {
 	
 	private void AImakesMove() {
 		
-		System.out.println("AI has made move");
+		int move = notHuman.getMove();
+		//boolean variable to determine if there are turns left in game
+		boolean turnsLeft = turn < 9;
+		int regionX = 0;
+		int regionY = move;
+		
+		if (move >= 3 && move < 6) {
+			regionX = 1;
+			regionY = move - 3;
+		} else {
+			regionX = 2;
+			regionY = move - 6;
+		}
+		
+		int pixelX = regionX * regionDimension;
+		int pixelY = regionY * regionDimension;
+		//boolean variable to determine if location on board is empty to be filled by player
+		boolean regionIsEmpty = boardBrain.region[regionY][regionX] == 0;
+		if (turnsLeft && regionIsEmpty) {
+			if (AIisGoingFirst == 1) {
+				g.drawString("x", pixelX + 50, pixelY + 250);
+			} else {
+				g.drawString("o", pixelX + 40, pixelY + 250);
+			}
+			//value of 4 chose for summing up values
+			boardBrain.region[regionY][regionX] = 4;
+			turn++;
+		}
 		
 	}
 

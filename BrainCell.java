@@ -4,14 +4,14 @@ public class BrainCell {
 	
 	//positions contains all the positions for the AI to place its mark
 	//AI learns by adding the same position repeatedly or removing a certain position
-	public Set<Integer> positions = new HashSet<>();
+	public List<Integer> positions = new ArrayList<>();
 	
 	/**
 	 * Creates a Braincell with a starting set of all the possible positions for the AI
 	 * to place its move relative to the specific board state
 	 * @param boardState [[0, 0, 0], [0, 0, 0], [0, 0, 0]]
 	 */
-	public void Braincell(int[][] boardState) {
+	public BrainCell(int[][] boardState) {
 		int position = 0;
 		for (int row = 0; row < boardState.length; row++) {
 			for (int col = 0; col < boardState[row].length; col++) {
