@@ -31,8 +31,8 @@ public class AIBrain {
 	 * @return chosenPosition after evaluating possibilities
 	 */
 	public int getMove() {
-		BoardBrain b = new BoardBrain(); 
-		int[][] correctMatch = b.region; 
+		BoardBrain b = new BoardBrain(); //<-- completely new, un-updated brain for the board with region full of null values
+		int[][] correctMatch = b.region;
 		BrainCell cup = null; 
 		
 		//finds the correct match and accesses the cup responsible for that state
